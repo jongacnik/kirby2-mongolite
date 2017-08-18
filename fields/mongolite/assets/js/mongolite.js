@@ -9,6 +9,7 @@
     var addapi = table.data('mongolite-add');
     var updateapi = table.data('mongolite-update');
     var deleteapi = table.data('mongolite-delete');
+    var rows = table.data('mongolite-rows');
 
     var headers = Object.keys(columns).map(function (key) {
       return $('<th>' + columns[key] + '</th>')
@@ -25,6 +26,7 @@
 
     var table = table.DataTable({
       columnDefs: defs,
+      pageLength: rows,
       ajax: {
         url: entriesapi,
         dataSrc: function (json) {

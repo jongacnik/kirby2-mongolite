@@ -2,9 +2,6 @@
   class="structure<?php e($field->readonly(), ' structure-readonly') ?>" 
   data-field="mongolite" 
 >
-
-  <?php echo $field->headline() ?>
-
   <table
     class="display"
     width="100%"
@@ -13,6 +10,6 @@
     data-mongolite-add="<?php __($field->url('add')) ?>"
     data-mongolite-update="<?php __($field->url('update')) ?>"
     data-mongolite-delete="<?php __($field->url('delete')) ?>"
+    data-mongolite-rows="<?php __($field->rows) ?>"
   ></table>
-
 </div>

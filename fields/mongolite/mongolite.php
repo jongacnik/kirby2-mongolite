@@ -18,6 +18,8 @@ class MongoliteField extends BaseField {
   public $default = array();
   public $fields = array();
   public $columns = array();
+  public $collection = null;
+  public $rows = 10;
   public $entry = null;
   public $structure = null;
   public $modalsize = 'medium';
@@ -167,38 +169,35 @@ class MongoliteField extends BaseField {
   }
 
   public function label () {
-    return null;
-  }
+    if(!$this->label) return null;
 
-  public function headline () {
+    $label = new Brick('label');
+    $label->addClass('label');
+    $label->attr('for', $this->id());
 
-    // get entries
-    // $entries = $this->entries();
+    $h2 = new Brick('h2');
+    $h2->addClass('hgroup hgroup-single-line hgroup-compressed cf');
+    $span = new Brick('span', $this->i18n($this->label));
+    $span->addClass('hgroup-title');
 
-    // check if limit is either null or the number of entries less than limit 
-    // if (!$this->readonly && (is_null($this->limit) || (is_int($this->limit) && $entries->count() < $this->limit))) {
+    $h2->append($span);
 
-      $add = new Brick('a');
-      $add->html('<i class="icon icon-left fa fa-plus-circle"></i>' . l('fields.structure.add'));
-      $add->addClass('structure-add-button label-option');
-      $add->data('modal', true);
-      $add->attr('href', purl($this->model, 'field/' . $this->name . '/mongolite/add'));
+    // Edit/Add links if index of subpages
+    $wrap = new Brick('span');
+    $wrap->addClass('hgroup-options shiv shiv-dark shiv-left');
 
-    // } else {
-    //   $add = null;
-    // }
+    $add = new Brick('a');
+    $add->html('<i class="icon icon-left fa fa-plus-circle"></i>' . l('fields.structure.add'));
+    $add->addClass('structure-add-button label-option');
+    $add->data('modal', true);
+    $add->attr('href', purl($this->model, 'field/' . $this->name . '/mongolite/add'));
 
-    // make sure there's at least an empty label
-    if (!$this->label) {
-      $this->label = '&nbsp;';
-    }
- 
-    $label = parent::label();
-    $label->addClass('structure-label');
-    $label->append($add);
+    $wrap->append($add);
+
+    $h2->append($wrap);
+    $label->append($h2);
 
     return $label;
-
   }
 
   public function content () {
