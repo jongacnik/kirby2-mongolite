@@ -1,0 +1,13 @@
+{
+    "name": "jongacnik/kirby-database-field",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Gacnik",
+            "email": "jon@folderstudio.com"
+        }
+    ],
+    "require": {
+        "agentejo/mongo-lite": "^1.0"
+    }
+}
