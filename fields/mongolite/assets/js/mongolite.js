@@ -48,7 +48,7 @@
     function editButton (id) {
       return ' \
         <a data-modal class="btn structure-edit-button" href="' + updateapi.replace('/update', '/' + id + '/update') + '"> \
-          <i class="icon icon-left fa fa-pencil"></i> \
+          <i class="icon fa fa-pencil"></i> \
         </a> \
       '
     }
@@ -56,7 +56,7 @@
     function deleteButton (id) {
       return ' \
         <a data-modal class="btn structure-edit-button" href="' + deleteapi.replace('/delete', '/' + id + '/delete') + '"> \
-          <i class="icon icon-left fa fa-trash"></i> \
+          <i class="icon fa fa-trash"></i> \
         </a> \
       '
     }
