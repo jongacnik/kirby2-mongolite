@@ -27,7 +27,7 @@ class MongoliteFieldController extends Kirby\Panel\Controllers\Field {
 
       // add to mongo-lite
       $data = $form->serialize();
-      $field->database->{$field->name}->insert($data);
+      $field->database->{$field->collection()}->insert($data);
 
       $self->redirect($model);
 
@@ -44,7 +44,7 @@ class MongoliteFieldController extends Kirby\Panel\Controllers\Field {
     $model     = $this->model();
     $structure = $this->structure($model);
     
-    $entry = $field->database->{$field->name}->findOne(['_id' => $entryId]);
+    $entry = $field->database->{$field->collection()}->findOne(['_id' => $entryId]);
 
     // abort if the field is readonly
     if($field->readonly) {
@@ -71,7 +71,7 @@ class MongoliteFieldController extends Kirby\Panel\Controllers\Field {
 
       // update in mongo-lite
       $data = $form->serialize();
-      $field->database->{$field->name}->update(['_id' => $entryId], $data);
+      $field->database->{$field->collection()}->update(['_id' => $entryId], $data);
 
       $self->redirect($model);
 
@@ -88,7 +88,7 @@ class MongoliteFieldController extends Kirby\Panel\Controllers\Field {
     $model     = $this->model();
     $structure = $this->structure($model);
     
-    $entry = $field->database->{$field->name}->findOne(['_id' => $entryId]);
+    $entry = $field->database->{$field->collection()}->findOne(['_id' => $entryId]);
 
     // abort if the field is readonly
     if($field->readonly) {
@@ -106,7 +106,7 @@ class MongoliteFieldController extends Kirby\Panel\Controllers\Field {
     $form = $this->form('delete', $model, function() use($self, $model, $structure, $field, $entryId) {
       
       // remove from mongo-lite
-      $field->database->{$field->name}->remove(['_id' => $entryId]);
+      $field->database->{$field->collection()}->remove(['_id' => $entryId]);
 
       $self->redirect($model);
     });

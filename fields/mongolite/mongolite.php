@@ -108,6 +108,11 @@ class MongoliteField extends BaseField {
 
   }
 
+  // name of mongolite collection specified by collection option, or field name
+  public function collection () {
+    return (isset($this->collection) && $this->collection) ? str::slug($this->collection) : $this->name;
+  }
+
   public function columns () {
     // if user has not set any columns, extract from fields
     return !empty($this->columns) ? $this->columns : array_map(function ($n) {
@@ -117,7 +122,7 @@ class MongoliteField extends BaseField {
 
   public function entries () {
     // get all entries from mongo-lite and convert to kirby structure
-    $entries = structure($this->database->{$this->name}->find()->toArray());
+    $entries = structure($this->database->{$this->collection()}->find()->toArray());
 
     if ($sort = $this->sort()) {
       $entries = call([$entries, 'sortBy'], $sort);
@@ -131,7 +136,7 @@ class MongoliteField extends BaseField {
   }
 
   public function result () {
-    return $this->name;
+    return $this->collection();
   }
 
   public function entry ($data) {
