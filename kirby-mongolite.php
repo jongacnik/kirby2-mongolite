@@ -40,18 +40,17 @@ $kirby->set('site::method', kirby()->option('mongolite.method', 'mongolite'), fu
  * http://kirbysite.com/kirby-mongolite/:collection
  */
 
-kirby()->routes([
-  [
-    'pattern' => kirby()->option('mongolite.route', 'kirby-mongolite'),
-    'action' => function () use ($database) {
-      return response::json($database->listCollections());
-    }
-  ],
-  [
-    'pattern' => kirby()->option('mongolite.route', 'kirby-mongolite') . '/(:any)',
-    'action' => function ($collection) use ($database) {
-      // add pagination and filtering
-      return response::json($database->{$collection}->find()->toArray());
-    }
-  ]
+$kirby->set('route', [
+  'pattern' => kirby()->option('mongolite.route', 'kirby-mongolite'),
+  'action' => function () use ($database) {
+    return response::json($database->listCollections());
+  }
+]);
+
+$kirby->set('route', [
+  'pattern' => kirby()->option('mongolite.route', 'kirby-mongolite') . '/(:any)',
+  'action' => function ($collection) use ($database) {
+    // add pagination and filtering
+    return response::json($database->{$collection}->find()->toArray());
+  }
 ]);
