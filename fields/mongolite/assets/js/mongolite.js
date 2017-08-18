@@ -45,6 +45,15 @@
       }
     });
 
+    // click row to edit
+    table.on('click', 'tbody tr', function (e) {
+      var $target = $(e.target)
+      if (!$target.is('i') && !$target.is('a')) {
+        var $edit = $(e.currentTarget).find('.structure-edit-button')
+        if ($edit.length) $edit.get(0).click()
+      }
+    })
+
     function editButton (id) {
       return ' \
         <a data-modal class="btn structure-edit-button" href="' + updateapi.replace('/update', '/' + id + '/update') + '"> \
@@ -55,7 +64,7 @@
 
     function deleteButton (id) {
       return ' \
-        <a data-modal class="btn structure-edit-button" href="' + deleteapi.replace('/delete', '/' + id + '/delete') + '"> \
+        <a data-modal class="btn structure-delete-button" href="' + deleteapi.replace('/delete', '/' + id + '/delete') + '"> \
           <i class="icon fa fa-trash"></i> \
         </a> \
       '
