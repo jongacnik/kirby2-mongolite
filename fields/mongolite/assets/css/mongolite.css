@@ -109,3 +109,7 @@
   outline: 0;
   border-color: #8dae28;
 }
+
+[data-field="mongolite"] .dataTable .btn:hover {
+  color: #8dae28;
+}
