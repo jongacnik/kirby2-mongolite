@@ -1,5 +1,12 @@
 (function($) {
 
+  function tinyBars (str, data) {
+    var regex = /{{\s*([\w\.]+)\s*}}/gi
+    return str.replace(regex, function (match, val) {
+      return data[val.trim()] || ''
+    })
+  }
+
   var Mongolite = function(el) {
 
     var element = $(el);
@@ -12,7 +19,11 @@
     var rows = table.data('mongolite-rows');
 
     var headers = Object.keys(columns).map(function (key) {
-      return $('<th>' + columns[key] + '</th>')
+      if ($.isPlainObject(columns[key])) {
+        return $('<th>' + columns[key].label + '</th>')
+      } else {
+        return $('<th>' + columns[key] + '</th>')
+      }
     })
 
     table.append(tableHead(headers, $('<thead></thead>')))
@@ -34,7 +45,11 @@
             var result = []
             
             Object.keys(columns).forEach(function (key) {
-              result.push(i[key])
+              if ($.isPlainObject(columns[key])) {
+                result.push(tinyBars(columns[key].value, i))
+              } else {
+                result.push(i[key])
+              }
             })
 
             return result.concat([editButton(i._id), deleteButton(i._id)])
